@@ -7,7 +7,6 @@ class BoardService {
     try {
       const res = await api.get('api/boards')
       AppState.boards = res.data
-      console.log(AppState.boards)
     } catch (err) {
       logger.error('Could not retrieve boards', err)
     }

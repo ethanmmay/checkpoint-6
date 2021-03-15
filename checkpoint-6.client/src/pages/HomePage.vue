@@ -1,20 +1,25 @@
 <template>
-  <div class="col-12 text-dark text-center mt-5" v-if="state">
+  <div class="col-12 text-dark text-center mt-5" v-show="state">
     <h2>Boards: </h2>
-    <Board v-for="board in state.boards" :key="board.title" :board="board" />
+    {{ state.boars }}
+    <!-- <Board v-for="board in state.boards" :key="board.id" :board="board" /> -->
   </div>
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
+import { boardService } from '../services/BoardService'
 export default {
   name: 'Home',
   setup() {
+    onMounted(async() => {
+      await boardService.getBoards()
+    })
     const state = reactive({
       boards: computed(() => AppState.boards)
     })
-    return state
+    return state // FLIP YOU JUST GIVE THE FLIPPING STATE TO THEM
   }
 }
 </script>
