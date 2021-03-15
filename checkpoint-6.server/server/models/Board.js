@@ -1,20 +1,19 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-const List = new Schema(
+const Board = new Schema(
   {
     title: { type: String, required: true },
-    creatorId: { type: String, ref: 'Account', required: true },
-    boardId: { type: String, ref: 'Board', required: true }
+    creatorId: { type: String, ref: 'Account', required: true }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
 
-List.virtual('creator', {
+Board.virtual('creator', {
   localField: 'creatorId',
   ref: 'Account',
   foreignField: '_id',
   justOne: true
 })
 
-export default List
+export default Board
