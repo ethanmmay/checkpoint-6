@@ -1,12 +1,13 @@
 <template>
   <li>
-    <div class="card text-left">
-      <div class="card-body">
-        <h4 class="card-title">
-          {{ task.title }}
-        </h4>
-
-        <p><i class="fa fa-pencil" aria-hidden="true"></i></p>
+    <div class="card text-left m-2 border-dark">
+      <div class="card-body p-2">
+        <div class="card-title d-inline-flex align-items-center my-2 justify-content-between w-100">
+          <h4 class="mb-0">
+            {{ task.title }}
+          </h4>
+          <i class="fa fa-pencil text-info" aria-hidden="true"></i>
+        </div>
       </div>
     </div>
   </li>
@@ -32,5 +33,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.fa:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+li {
+  list-style-type: none;
+}
 </style>

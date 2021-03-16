@@ -1,6 +1,6 @@
 <template>
-  <div class="col-2">
-    <div class="bg-img w-100">
+  <div class="col-2 mt-4 px-0">
+    <div class="bg-dark w-100">
       <h5 class="text-light text-center">
         {{ list.title }}
       </h5>
@@ -40,5 +40,9 @@ export default {
   border-radius: 15px;
   background-image: url('../assets/img/mountains.jpg');
   background-size: cover;
+}
+
+ul {
+  padding-left: 0;
 }
 </style>
