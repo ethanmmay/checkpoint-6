@@ -27,14 +27,15 @@ class ListService {
           }
           return { title: title }
         }
-      }).then(async(result) => {
+        // eslint-disable-next-line space-before-function-paren
+      }).then(async (result) => {
         const newList = {
           title: result.value.title,
           creatorId: AppState.user.id,
           boardId: AppState.currentboardId // PUT ID IN LINK HERE
         }
         AppState.lists.push(newList)
-        // await api.post('api/lists', newList)
+        await api.post('api/lists', newList)
         this.getLists()
       })
     } catch (error) {
