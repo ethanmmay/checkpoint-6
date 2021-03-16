@@ -1,12 +1,10 @@
 <template>
   <div class="col-2">
-    <router-link :to="{name: 'BoardPage', query: { id: board.id }}" @click="loadState()">
-      <div class="bg-img w-100">
-        <h5 class="text-light text-center">
-          {{ board.title }}
-        </h5>
-      </div>
-    </router-link>
+    <div class="bg-img w-100">
+      <h5 class="text-light text-center">
+        {{ list.title }}
+      </h5>
+    </div>
   </div>
 </template>
 
@@ -14,18 +12,16 @@
 import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
 export default {
-  name: 'Board',
+  name: 'List',
   props: {
-    board: { type: Object, default: undefined }
+    list: { type: Object, default: undefined }
   },
   setup() {
     const state = reactive({
       user: computed(() => AppState.user)
     })
     return {
-      state,
-      loadState() {
-      }
+      state
     }
   }
 }

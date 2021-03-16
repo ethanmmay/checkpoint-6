@@ -1,28 +1,31 @@
 <template>
   <div class="col-12 text-dark mt-3" onload="loadState()">
-    <h3>Boards: </h3><br>
-    <div class="row">
-      <Board v-for="board in state.boards" :key="board.title" :board="board" />
-    </div>
+    <button @click="createList()">
+      Create List
+    </button>
+    <List v-for="list in state.lists" :key="list.title" :list="list" />
   </div>
 </template>
 
 <script>
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
-import { boardService } from '../services/BoardService'
+import { listService } from '../services/ListService'
 export default {
-  name: 'Home',
+  name: 'BoardPage',
   setup() {
     onMounted(async() => {
-      await boardService.getBoards()
+      await listService.getLists()
     })
     const state = reactive({
-      boards: computed(() => AppState.boards)
+      lists: computed(() => AppState.lists)
     })
     return {
       state,
       loadState() {
+      },
+      async createList() {
+        await listService.createList()
       }
     }
   }
