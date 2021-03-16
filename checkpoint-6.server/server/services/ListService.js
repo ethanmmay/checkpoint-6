@@ -3,11 +3,11 @@ import { BadRequest } from '../utils/Errors'
 
 class ListService {
   async find(query = {}) {
-    return await dbContext.Lists.find(query).populate('creatorId boardId')
+    return await dbContext.Lists.find(query)
   }
 
   async findById(id) {
-    const list = await dbContext.Lists.findById(id).populate('creatorId boardId')
+    const list = await dbContext.Lists.findById(id)
     if (!list) {
       throw new BadRequest('Invalid Id')
     }
@@ -19,11 +19,11 @@ class ListService {
   }
 
   async create(body) {
-    return await dbContext.Lists.create(body).populate('creatorId boardId')
+    return await dbContext.Lists.create(body)
   }
 
   async delete(id) {
-    const list = await dbContext.Lists.findByIdAndDelete(id).populate('creatorId boardId')
+    const list = await dbContext.Lists.findByIdAndDelete(id)
     if (!list) {
       throw new BadRequest('No List exists with that ID')
     }
@@ -31,7 +31,7 @@ class ListService {
   }
 
   async edit(id, body) {
-    return await dbContext.Lists.findByIdAndUpdate(id, body).populate('creatorId boardId')
+    return await dbContext.Lists.findByIdAndUpdate(id, body)
   }
 }
 
