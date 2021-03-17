@@ -5,7 +5,7 @@
         {{ list.title }}
       </h5>
       <ul>
-        <Task v-for="task in state.tasks" :key="task.title" :task="task" />
+        <Task v-for="task in state.tasks.filter(t => t.listId == list.id)" :key="task.title" :task="task" />
       </ul>
     </div>
   </div>

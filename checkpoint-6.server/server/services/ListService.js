@@ -31,7 +31,8 @@ class ListService {
   }
 
   async edit(id, body) {
-    return await dbContext.Lists.findByIdAndUpdate(id, body)
+    await dbContext.Lists.findByIdAndUpdate(id, body)
+    return await dbContext.Lists.findById(id)
   }
 }
 

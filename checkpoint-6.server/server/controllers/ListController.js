@@ -13,8 +13,8 @@ export class ListController extends BaseController {
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
+      .put('/:id', this.edit)
       .delete('/:id', this.delete)
-      .put(':/id', this.edit)
   }
 
   async getAll(req, res, next) {
@@ -54,7 +54,7 @@ export class ListController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      res.send(await listService.delete(req.params.id, req.userInfo.id, req.body))
+      res.send(await listService.edit(req.params.id, req.body))
     } catch (error) {
       next(error)
     }

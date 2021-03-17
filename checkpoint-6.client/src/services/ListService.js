@@ -21,7 +21,7 @@ class ListService {
         creatorId: AppState.user.id,
         boardId: AppState.currentBoardId
       }
-      AppState.lists.unshift(rawList)
+      AppState.lists.push(rawList)
       await api.post('api/lists', rawList)
     } catch (error) {
       logger.log(error)
