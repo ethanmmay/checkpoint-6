@@ -13,31 +13,16 @@ class ListService {
     }
   }
 
-  createList() {
+  async createList(event) {
     try {
-      Swal.fire({
-        title: 'New List',
-        html: '<input type="text" id="title" class="swal2-input" placeholder="List Name">',
-        confirmButtonText: 'Create',
-        focusConfirm: false,
-        preConfirm: () => {
-          const title = Swal.getPopup().querySelector('#title').value
-          if (!title) {
-            Swal.showValidationMessage('Please enter a name')
-          }
-          return { title: title }
-        }
-        // eslint-disable-next-line space-before-function-paren
-      }).then(async (result) => {
-        const newList = {
-          title: result.value.title,
-          creatorId: AppState.user.id,
-          boardId: AppState.currentboardId // PUT ID IN LINK HERE
-        }
-        AppState.lists.push(newList)
-        await api.post('api/lists', newList)
-        this.getLists()
-      })
+      const rawList = {
+        title: event.target.listTitle.value,
+        color: event.target.listColor.value,
+        creatorId: AppState.user.id,
+        boardId: AppState.currentBoardId
+      }
+      AppState.lists.unshift(rawList)
+      await api.post('api/lists', rawList)
     } catch (error) {
       logger.log(error)
     }

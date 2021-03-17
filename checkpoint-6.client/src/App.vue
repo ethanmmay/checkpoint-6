@@ -16,6 +16,8 @@
 import { computed, onMounted } from 'vue'
 import { AppState } from './AppState'
 import { boardService } from './services/BoardService'
+// eslint-disable-next-line no-unused-vars
+import { listService } from './services/ListService'
 export default {
   name: 'App',
   setup() {

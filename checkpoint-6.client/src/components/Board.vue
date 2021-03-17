@@ -1,6 +1,6 @@
 <template>
   <div class="col-2">
-    <router-link :to="{name: 'BoardPage', query: { id: board.id }}" @click="loadState()">
+    <router-link :to="{name: 'BoardPage', query: { id: board.id }}" @click="setCurrentBoardId(board.id)">
       <div class="bg-img w-100">
         <h5 class="text-light text-center">
           {{ board.title }}
@@ -24,7 +24,8 @@ export default {
     })
     return {
       state,
-      loadState() {
+      setCurrentBoardId(boardId) {
+        AppState.currentBoardId = boardId
       }
     }
   }

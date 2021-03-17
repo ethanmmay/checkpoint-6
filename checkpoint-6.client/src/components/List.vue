@@ -1,10 +1,12 @@
 <template>
-  <div class="col-2 mt-4 px-0">
-    <div class="bg-dark w-100">
-      <h5 class="text-light text-center">
+  <div class="col-3 mt-4">
+    <div class="w-100 rounded p-1" :style="'background-color: ' + list.color">
+      <h5 class="text-light text-center my-2">
         {{ list.title }}
       </h5>
-      <ul><Task v-for="task in state.tasks" :key="task.title" :task="task" /></ul>
+      <ul>
+        <Task v-for="task in state.tasks" :key="task.title" :task="task" />
+      </ul>
     </div>
   </div>
 </template>

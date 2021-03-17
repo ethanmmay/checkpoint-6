@@ -2,7 +2,7 @@
   <li>
     <div class="card text-left m-2 border-dark">
       <div class="card-body p-2">
-        <div class="card-title d-inline-flex align-items-center my-2 justify-content-between w-100">
+        <div class="card-title mb-0 d-inline-flex align-items-center justify-content-between w-100">
           <h4 class="mb-0">
             {{ task.title }}
           </h4>

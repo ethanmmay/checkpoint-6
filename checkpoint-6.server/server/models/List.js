@@ -5,7 +5,8 @@ const List = new Schema(
   {
     title: { type: String, required: true },
     creatorId: { type: String, ref: 'Account', required: true },
-    boardId: { type: String, ref: 'Board', required: true }
+    boardId: { type: String, ref: 'Board', required: true },
+    color: { type: String, required: false }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
