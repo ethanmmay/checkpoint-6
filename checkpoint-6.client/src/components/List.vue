@@ -3,6 +3,7 @@
     <div class="w-100 rounded p-1" :style="'background-color: ' + list.color">
       <h5 class="text-light text-center my-2">
         {{ list.title }}
+        <i class="fa fa-trash" aria-hidden="true" @click="deleteList(list.id)"></i>
       </h5>
       <ul>
         <Task v-for="task in state.tasks.filter(t => t.listId == list.id)" :key="task.title" :task="task" />
@@ -15,6 +16,7 @@
 import { computed, reactive, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import { taskService } from '../services/TaskService'
+import { listService } from '../services/ListService'
 export default {
   name: 'List',
   props: {
@@ -29,7 +31,11 @@ export default {
       tasks: computed(() => AppState.tasks)
     })
     return {
-      state
+      state,
+      deleteList(id) {
+        listService.deleteList(id)
+      }
+
     }
   }
 }

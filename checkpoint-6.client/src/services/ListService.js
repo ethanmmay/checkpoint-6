@@ -13,13 +13,24 @@ class ListService {
     }
   }
 
-  async createList(event) {
+  async deleteList(id) {
+    try {
+      const i = AppState.lists.findIndex(l => l.id === id)
+      AppState.lists.splice(i, 1)
+      const res = await api.delete('api/lists/' + id)
+      logger(res)
+    } catch (err) {
+      logger.error('Could not delete list', err)
+    }
+  }
+
+  async createList(event, route) {
     try {
       const rawList = {
         title: event.target.listTitle.value,
         color: event.target.listColor.value,
         creatorId: AppState.user.id,
-        boardId: AppState.currentBoardId
+        boardId: route.params.id
       }
       AppState.lists.push(rawList)
       await api.post('api/lists', rawList)

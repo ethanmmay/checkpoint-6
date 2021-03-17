@@ -10,7 +10,7 @@
       </div>
     </form>
     <div class="row d-flex justify-content-evenly">
-      <List v-for="list in state.lists.filter(l => l.boardId == state.currentBoardId)" :key="list.id" :list="list" />
+      <List v-for="list in state.lists.filter(l => l.boardId == route.params.id)" :key="list.id" :list="list" />
     </div>
   </div>
 </template>
@@ -20,10 +20,13 @@ import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { listService } from '../services/ListService'
 import { boardService } from '../services/BoardService'
+import { useRoute } from 'vue-router'
 
 export default {
   name: 'BoardPage',
   setup() {
+    const route = useRoute()
+
     onMounted(() => {
       listService.getLists() // ASYNC AWAIT DOESNT WORK WITH ONMOUNTED
       boardService.getBoards()
@@ -33,16 +36,16 @@ export default {
       boards: computed(() => AppState.boards),
       lists: computed(() => AppState.lists),
       newListName: 'List Title',
-      newListBgColor: '#404040',
-      currentBoardId: computed(() => AppState.currentBoardId)
+      newListBgColor: '#404040'
     })
     return {
       state,
       createList(event) {
-        listService.createList(event)
+        listService.createList(event, route)
       },
       loadState() {
-      }
+      },
+      route
     }
   }
 }
