@@ -10,7 +10,7 @@
       </div>
     </form>
     <div class="row d-flex justify-content-evenly">
-      <List v-for="list in state.lists" :key="list.id" :list="list" />
+      <List v-for="list in state.lists.filter(l => l.boardId == state.currentBoardId)" :key="list.id" :list="list" />
     </div>
   </div>
 </template>
@@ -19,16 +19,22 @@
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { listService } from '../services/ListService'
+import { boardService } from '../services/BoardService'
+
 export default {
   name: 'BoardPage',
   setup() {
     onMounted(() => {
       listService.getLists() // ASYNC AWAIT DOESNT WORK WITH ONMOUNTED
+      boardService.getBoards()
     })
+
     const state = reactive({
+      boards: computed(() => AppState.boards),
       lists: computed(() => AppState.lists),
       newListName: 'List Title',
-      newListBgColor: '#404040'
+      newListBgColor: '#404040',
+      currentBoardId: computed(() => AppState.currentBoardId)
     })
     return {
       state,

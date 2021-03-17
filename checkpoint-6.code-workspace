@@ -1,4 +1,3 @@
-
 {
   "folders": [
     {
@@ -34,9 +33,10 @@
     "eslint.alwaysShowStatus": true,
     "eslint.format.enable": true,
     "eslint.lintTask.enable": true,
-    "eslint.codeActionsOnSave.mode": "all",
     "editor.codeActionsOnSave": {
-      "source.fixAll": true
-    }
+      "source.fixAll": false
+    },
+    "liveServer.settings.multiRootWorkspaceName": "client",
+    "eslint.options": {}
   }
 }
