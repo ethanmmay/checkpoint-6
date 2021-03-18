@@ -5,19 +5,12 @@
   <main class="container-fluid">
     <router-view />
   </main>
-  <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
-    </div>
-  </footer>
 </template>
 
 <script>
 import { computed, onMounted } from 'vue'
 import { AppState } from './AppState'
 import { boardService } from './services/BoardService'
-// eslint-disable-next-line no-unused-vars
-import { listService } from './services/ListService'
 export default {
   name: 'App',
   setup() {
@@ -32,5 +25,7 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
-
+.nav-link {
+  color: var(--dark);
+}
 </style>

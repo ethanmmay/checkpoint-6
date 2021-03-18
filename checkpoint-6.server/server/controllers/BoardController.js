@@ -14,7 +14,7 @@ export class BoardController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .delete('/:id', this.delete)
-      .put(':/id', this.edit)
+      .put('/:id', this.edit)
   }
 
   async getAll(req, res, next) {

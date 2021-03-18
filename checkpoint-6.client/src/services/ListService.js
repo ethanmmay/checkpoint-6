@@ -39,6 +39,28 @@ class ListService {
       logger.log(error)
     }
   }
+
+  async editList(rawList) {
+    Swal.fire({
+      title: 'Edit List',
+      html: `<input type="text" id="title" class="swal2-input" placeholder="Board Title" value="${rawList.title}">`,
+      confirmButtonText: 'Save',
+      focusConfirm: false,
+      preConfirm: () => {
+        const title = Swal.getPopup().querySelector('#title').value
+        if (!title) {
+          Swal.showValidationMessage('Please enter a list title.')
+        }
+        return { title: title }
+      }
+    }).then(async(result) => {
+      const editedList = {
+        title: result.value.title
+      }
+      await api.put('api/lists/' + rawList.id, editedList)
+      this.getLists()
+    })
+  }
 }
 
 export const listService = new ListService()

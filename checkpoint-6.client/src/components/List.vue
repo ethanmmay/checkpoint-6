@@ -1,15 +1,23 @@
 <template>
-  <div class="col-3 mt-4">
-    <div class="w-100 rounded p-1 d-flex align-items-center" :style="'background-color: ' + list.color">
-      <div class="d-inline-flex justify-content-between align-items-center w-100 px-2">
-        <h5 class="text-light text-center my-2">
-          {{ list.title }}
-        </h5>
-        <i class="fa fa-trash text-danger" aria-hidden="true" @click="deleteList(list.id)"></i>
+  <div class="col-lg-3 mt-4">
+    <div class="w-100 rounded p-1 d-block-flex align-items-center" :style="'background-color: ' + list.color">
+      <div class="row d-inline-flex w-100 px-2">
+        <div class="col-12 d-flex align-items-center justify-content-between">
+          <h5 class="text-light text-center my-2">
+            {{ list.title }}
+          </h5>
+          <div class="d-inline-flex">
+            <i class="fa fa-plus-circle text-light" aria-hidden="true" @click="addTask(list.id)"></i>
+            <i class="fa fa-pencil text-info mx-3" aria-hidden="true" @click="editList(list)"></i>
+            <i class="fa fa-trash text-danger" aria-hidden="true" @click="deleteList(list.id)"></i>
+          </div>
+        </div>
       </div>
-      <ul>
-        <Task v-for="task in state.tasks.filter(t => t.listId == list.id)" :key="task.title" :task="task" />
-      </ul>
+      <div class="row d-flex px-3">
+        <ul>
+          <Task v-for="task in state.tasks.filter(t => t.listId == list.id)" :key="task.title" :task="task" />
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +44,12 @@ export default {
       state,
       deleteList(id) {
         listService.deleteList(id)
+      },
+      editList(rawList) {
+        listService.editList(rawList)
+      },
+      addTask(listId) {
+        taskService.createTask(listId)
       }
 
     }

@@ -1,12 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img
-          alt="logo"
-          src="../assets/img/cw-logo.png"
-          height="45"
-        />
       </div>
     </router-link>
     <button
@@ -23,13 +18,8 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link :to="{ name: 'Home' }" class="nav-link">
-            Home
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'About' }" class="nav-link">
-            About
+          <router-link :to="{ name: 'Home' }" class="nav-link text-secondary">
+            Boards
           </router-link>
         </li>
       </ul>
@@ -53,10 +43,10 @@
               height="40"
               class="rounded"
             />
-            <span class="mx-3">{{ user.name }}</span>
+            <span class="mx-3 text-dark">{{ user.name }}</span>
           </div>
           <div
-            class="dropdown-menu p-0 list-group w-100"
+            class="dropdown-menu p-0 mt-3 list-group w-100"
             :class="{ show: state.dropOpen }"
             @click="state.dropOpen = false"
           >
@@ -116,12 +106,18 @@ export default {
   cursor: pointer;
 }
 a:hover {
-  text-decoration: none;
+  text-decoration: underline;
 }
 .nav-link{
   text-transform: uppercase;
+  color: var(--dark);
 }
 .nav-item .nav-link.router-link-exact-active{
-  color: var(--primary);
+  color: var(--secondary);
+}
+
+.text-secondary {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: bold;
 }
 </style>

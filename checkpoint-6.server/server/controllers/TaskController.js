@@ -14,7 +14,7 @@ export class TaskController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .delete('/:id', this.delete)
-      .put(':/id', this.edit)
+      .put('/:id', this.edit)
   }
 
   async getAll(req, res, next) {
@@ -54,7 +54,7 @@ export class TaskController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      res.send(await taskService.delete(req.params.id, req.userInfo.id, req.body))
+      res.send(await taskService.edit(req.params.id, req.body))
     } catch (error) {
       next(error)
     }
