@@ -1,7 +1,7 @@
 <template>
-  <div class="col-2">
-    <router-link :to="{name: 'BoardPage', params: { id: board.id }}" @click="setCurrentBoardId(board.id)">
-      <div class="bg-img w-100">
+  <div class="col-sm-2 mt-2">
+    <router-link :to="{name: 'BoardPage', params: { id: board.id }}">
+      <div class="bg-img w-100" :style="'background-image: url(' + board.bgImg + ')'">
         <h5 class="text-light text-center">
           {{ board.title }}
         </h5>
@@ -23,10 +23,7 @@ export default {
       user: computed(() => AppState.user)
     })
     return {
-      state,
-      setCurrentBoardId(boardId) {
-        AppState.currentBoardId = boardId
-      }
+      state
     }
   }
 }
@@ -34,10 +31,10 @@ export default {
 
 <style scoped lang="scss">
 .bg-img {
-  border: 2px solid black;
+  border: 1px solid #757575;
   min-height: 125px;
   border-radius: 15px;
-  background-image: url('../assets/img/mountains.jpg');
   background-size: cover;
+  text-shadow: 2px 2px 2px black;
 }
 </style>

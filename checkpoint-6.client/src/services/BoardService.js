@@ -1,6 +1,6 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
-import { api } from './AxiosService'
+import { api, unsplashApi } from './AxiosService'
 
 class BoardService {
   async getBoards() {
@@ -9,6 +9,21 @@ class BoardService {
       AppState.boards = res.data
     } catch (err) {
       logger.error('Could not retrieve boards', err)
+    }
+  }
+
+  async createBoard(event) {
+    try {
+      const res = await unsplashApi.get('')
+      const rawBoard = {
+        title: event.target.boardTitle.value,
+        creatorId: AppState.user.id,
+        bgImg: res.data.urls.small
+      }
+      AppState.boards.push(rawBoard)
+      await api.post('api/boards', rawBoard)
+    } catch (error) {
+      logger.error(error)
     }
   }
 }

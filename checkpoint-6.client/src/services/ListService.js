@@ -34,6 +34,7 @@ class ListService {
       }
       AppState.lists.push(rawList)
       await api.post('api/lists', rawList)
+      this.getLists()
     } catch (error) {
       logger.log(error)
     }

@@ -1,10 +1,12 @@
 <template>
   <div class="col-3 mt-4">
-    <div class="w-100 rounded p-1" :style="'background-color: ' + list.color">
-      <h5 class="text-light text-center my-2">
-        {{ list.title }}
-        <i class="fa fa-trash" aria-hidden="true" @click="deleteList(list.id)"></i>
-      </h5>
+    <div class="w-100 rounded p-1 d-flex align-items-center" :style="'background-color: ' + list.color">
+      <div class="d-inline-flex justify-content-between align-items-center w-100 px-2">
+        <h5 class="text-light text-center my-2">
+          {{ list.title }}
+        </h5>
+        <i class="fa fa-trash text-danger" aria-hidden="true" @click="deleteList(list.id)"></i>
+      </div>
       <ul>
         <Task v-for="task in state.tasks.filter(t => t.listId == list.id)" :key="task.title" :task="task" />
       </ul>
@@ -42,12 +44,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.bg-img {
-  border: 2px solid black;
-  min-height: 125px;
-  border-radius: 15px;
-  background-image: url('../assets/img/mountains.jpg');
-  background-size: cover;
+h5, .fa {
+  text-shadow: 2px 2px 2px black;
+}
+
+.fa {
+  font-size: 16pt;
+}
+
+.fa:hover {
+  cursor: pointer;
+  transform: scale(0.8);
 }
 
 ul {

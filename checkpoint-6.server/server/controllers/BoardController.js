@@ -53,7 +53,7 @@ export class BoardController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      res.send(await boardService.delete(req.params.id, req.userInfo.id, req.body))
+      res.send(await boardService.edit(req.params.id, req.body))
     } catch (error) {
       next(error)
     }
