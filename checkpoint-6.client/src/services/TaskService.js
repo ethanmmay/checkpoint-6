@@ -27,7 +27,7 @@ class TaskService {
           }
           return { title: title }
         }
-      }).then(async (result) => {
+      }).then(async(result) => {
         const newTask = {
           title: result.value.title,
           creatorId: AppState.user.id,
@@ -65,13 +65,41 @@ class TaskService {
         }
         return { title: title }
       }
-    }).then(async (result) => {
+    }).then(async(result) => {
       const editedTask = {
         title: result.value.title
       }
       await api.put('api/tasks/' + rawTask.id, editedTask)
       this.getTasks()
     })
+  }
+
+  async shiftTaskLeft(task, route) {
+    // get lists on page
+    const currentlists = AppState.lists.filter(l => l.boardId === route.params.id)
+    // get listid of list to the right from clicked task
+    const thisList = currentlists.filter(l => l.id === task.listId)
+    const thisListIndex = currentlists.indexOf(thisList[0])
+    // set tasks id to that id
+    task.listId = thisListIndex - 1
+    AppState.tasks.filter(t => t.id === task.id)[0].listId = AppState.lists.filter(l => l.boardId === route.params.id)[thisListIndex - 1].id
+    task.listId = AppState.lists.filter(l => l.boardId === route.params.id)[thisListIndex - 1].id
+    // redraw
+    await api.put('api/tasks/' + task.id, task)
+  }
+
+  async shiftTaskRight(task, route) {
+    // get lists on page
+    const currentlists = AppState.lists.filter(l => l.boardId === route.params.id)
+    // get listid of list to the right from clicked task
+    const thisList = currentlists.filter(l => l.id === task.listId)
+    const thisListIndex = currentlists.indexOf(thisList[0])
+    // set tasks id to that id
+    task.listId = thisListIndex + 1
+    AppState.tasks.filter(t => t.id === task.id)[0].listId = AppState.lists.filter(l => l.boardId === route.params.id)[thisListIndex + 1].id
+    task.listId = AppState.lists.filter(l => l.boardId === route.params.id)[thisListIndex + 1].id
+    // redraw
+    await api.put('api/tasks/' + task.id, task)
   }
 }
 

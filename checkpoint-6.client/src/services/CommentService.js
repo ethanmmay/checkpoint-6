@@ -24,20 +24,28 @@ class CommentService {
     }
   }
 
-  async createComment(event, route) {
-    try {
-      const rawComment = {
-        title: event.target.commentTitle.value,
-        color: event.target.commentColor.value,
-        creatorId: AppState.user.id,
-        boardId: route.params.id
+  async createComment(taskId) {
+    Swal.fire({
+      title: 'Create Comment',
+      html: '<input type="text" id="title" class="swal2-input" placeholder="Enter your comment...">',
+      confirmButtonText: 'Save',
+      focusConfirm: false,
+      preConfirm: () => {
+        const title = Swal.getPopup().querySelector('#title').value
+        if (!title) {
+          Swal.showValidationMessage('Please enter a comment title.')
+        }
+        return { title: title }
       }
-      AppState.comments.push(rawComment)
+    }).then(async(result) => {
+      const rawComment = {
+        title: result.value.title,
+        taskId: taskId,
+        creatorId: AppState.user.id
+      }
       await api.post('api/comments', rawComment)
       this.getComments()
-    } catch (error) {
-      logger.log(error)
-    }
+    })
   }
 
   async editComment(rawComment) {
@@ -53,7 +61,7 @@ class CommentService {
         }
         return { title: title }
       }
-    }).then(async (result) => {
+    }).then(async(result) => {
       const editedComment = {
         title: result.value.title
       }

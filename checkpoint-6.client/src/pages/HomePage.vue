@@ -23,8 +23,8 @@ import { boardService } from '../services/BoardService'
 export default {
   name: 'Home',
   setup() {
-    onMounted(async() => {
-      await boardService.getBoards()
+    onMounted(() => {
+      boardService.getBoards()
     })
     const state = reactive({
       boards: computed(() => AppState.boards)

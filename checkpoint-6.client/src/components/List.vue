@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-3 mt-4">
     <div class="w-100 rounded p-1 d-block-flex align-items-center" :style="'background-color: ' + list.color">
-      <div class="row d-inline-flex w-100 px-2">
+      <div class="row px-2">
         <div class="col-12 d-flex align-items-center justify-content-between">
           <h5 class="text-light text-center my-2">
             {{ list.title }}
