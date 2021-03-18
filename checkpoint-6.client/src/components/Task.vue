@@ -33,6 +33,9 @@ export default {
       state,
       deleteTask(id) {
         taskService.deleteTask(id)
+      },
+      editTask(rawTask) {
+        taskService.editTask(rawTask)
       }
     }
   }

@@ -27,7 +27,7 @@ class TaskService {
           }
           return { title: title }
         }
-      }).then(async(result) => {
+      }).then(async (result) => {
         const newTask = {
           title: result.value.title,
           creatorId: AppState.user.id,
@@ -50,6 +50,28 @@ class TaskService {
     } catch (err) {
       logger.error('Could not delete task', err)
     }
+  }
+
+  async editTask(rawTask) {
+    Swal.fire({
+      title: 'Edit Task',
+      html: `<input type="text" id="title" class="swal2-input" placeholder="Board Title" value="${rawTask.title}">`,
+      confirmButtonText: 'Save',
+      focusConfirm: false,
+      preConfirm: () => {
+        const title = Swal.getPopup().querySelector('#title').value
+        if (!title) {
+          Swal.showValidationMessage('Please enter a list title.')
+        }
+        return { title: title }
+      }
+    }).then(async (result) => {
+      const editedTask = {
+        title: result.value.title
+      }
+      await api.put('api/tasks/' + rawTask.id, editedTask)
+      this.getTasks()
+    })
   }
 }
 
