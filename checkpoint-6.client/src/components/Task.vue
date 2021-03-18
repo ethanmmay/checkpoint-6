@@ -1,33 +1,40 @@
 <template>
-  <li>
-    <div class="card text-left m-2 border-dark">
-      <div class="card-body p-2">
-        <div class="card-title mb-0 d-inline-flex align-items-center justify-content-between w-100">
-          <h6 class="mb-0">
-            {{ task.title }}
-          </h6>
-          <div class="d-inline-flex">
-            <i class="fa fa-pencil text-info ml-3" aria-hidden="true" @click="editTask(task)"></i>
-            <i class="fa fa-trash text-danger ml-2" aria-hidden="true" @click="deleteTask(task.id)"></i>
-          </div>
-        </div>
+  <div class="col-12 p-2 px-4  bg-light rounded  mb-2">
+    <div class="row justify-content-between align-items-center">
+      <h6 class="mb-0">
+        {{ task.title }}
+      </h6>
+      <div class="d-inline-flex">
+        <i class="fa fa-comment " aria-hidden="true" @click="state.commentsToggled = !state.commentsToggled" v-if="state.comments.filter(c=>c.taskId === task.id)[0]"></i>
+        <i class="fa fa-pencil mx-2" aria-hidden="true" @click="editTask(task)"></i>
+        <i class="fa fa-trash" aria-hidden="true" @click="deleteTask(task.id)"></i>
       </div>
     </div>
-  </li>
+    <div class="row" v-show="state.commentsToggled">
+      <Comment v-for="comment in state.comments.filter(c => c.taskId === task.id)" :key="comment.id" :comment="comment" />
+    </div>
+  </div>
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { taskService } from '../services/TaskService'
+import { commentService } from '../services/CommentService'
+
 export default {
   name: 'Task',
   props: {
     task: { type: Object, default: undefined }
   },
   setup() {
+    onMounted(() => {
+      commentService.getComments()
+    })
     const state = reactive({
-      user: computed(() => AppState.user)
+      user: computed(() => AppState.user),
+      comments: computed(() => AppState.comments),
+      commentsToggled: false
     })
     return {
       state,
@@ -45,12 +52,14 @@ export default {
 <style lang="scss" scoped>
 .fa:hover {
   cursor: pointer;
-  transform: scale(1.2);
+  transform: scale(1.4);
 }
-.fa {
-  text-shadow: 2px 1px 2px black;
-}
+
 li {
   list-style-type: none;
+}
+
+.col-12{
+  filter: drop-shadow(1px 1px 1px black);
 }
 </style>

@@ -17,7 +17,7 @@ class TaskService {
     try {
       Swal.fire({
         title: 'New Task',
-        html: '<input type="text" id="title" class="swal2-input" maxlength=10 placeholder="Task Name">',
+        html: '<input type="text" id="title" class="swal2-input" maxlength=15 placeholder="Task Name">',
         confirmButtonText: 'Create',
         focusConfirm: false,
         preConfirm: () => {

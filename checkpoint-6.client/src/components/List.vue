@@ -14,9 +14,7 @@
         </div>
       </div>
       <div class="row d-flex px-3">
-        <ul>
-          <Task v-for="task in state.tasks.filter(t => t.listId == list.id)" :key="task.title" :task="task" />
-        </ul>
+        <Task v-for="task in state.tasks.filter(t => t.listId == list.id)" :key="task.title" :task="task" />
       </div>
     </div>
   </div>
