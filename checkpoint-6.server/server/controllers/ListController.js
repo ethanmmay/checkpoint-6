@@ -46,7 +46,7 @@ export class ListController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      res.send(await listService.delete(req.params.id, req.userInfo.id))
+      res.send(await listService.delete(req.params.id))
     } catch (error) {
       next(error)
     }

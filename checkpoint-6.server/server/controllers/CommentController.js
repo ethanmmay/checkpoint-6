@@ -12,7 +12,7 @@ export class CommentController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .delete('/:id', this.delete)
-      .put(':/id', this.edit)
+      .put('/:id', this.edit)
   }
 
   async getAll(req, res, next) {
@@ -44,7 +44,7 @@ export class CommentController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      res.send(await commentService.delete(req.params.id, req.userInfo.id))
+      res.send(await commentService.delete(req.params.id))
     } catch (error) {
       next(error)
     }
@@ -52,7 +52,7 @@ export class CommentController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      res.send(await commentService.delete(req.params.id, req.userInfo.id, req.body))
+      res.send(await commentService.edit(req.params.id, req.body))
     } catch (error) {
       next(error)
     }
